@@ -16,10 +16,8 @@ the Teams service needs to call into the bot.
 1) Clone the repository
 
     ```bash
-    git clone https://github.com/Microsoft/botbuilder-samples.git
+    git clone https://github.com/srinaath/pongbot.git
     ```
-
-1) In a terminal, navigate to `samples/javascript_nodejs/57.teams-conversation-bot`
 
 1) Install modules
 
@@ -27,10 +25,17 @@ the Teams service needs to call into the bot.
     npm install
     ```
 
-1) Run ngrok - point to port 3978
+2) Run ngrok - point to port 3978
 
     ```bash
     ngrok http -host-header=rewrite 3978
+    ```
+
+
+3) Start
+
+    ```bash
+    npm start
     ```
 
 1) Create [Bot Framework registration resource](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-quickstart-registration) in Azure
