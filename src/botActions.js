@@ -69,19 +69,19 @@ export default (luisResponse, entityMappers, members) => {
     const players = await StatsOperations.getLeaderboards()
     const entities = []
     const clonedLeaderboard = cloneDeep(LeaderboardCard)
-    // const body = clonedLeaderboard.body[0]
-    // players.forEach((playerDb) => {
-    //   const obj =  playerDb.toObject()
-    //   const playerTemplate = cloneDeep(body.columns[0].items[1])
-    //   const winPercentTemplate = cloneDeep(body.columns[1].items[1])
-    //   playerTemplate.text = '@'+/<at>(.*?)<\/at>/g.exec(obj.player.text)[1]
-    //   winPercentTemplate.text = `${Math.round(obj.percentage)}%`
-    //   body.columns[0].items.push(playerTemplate)
-    //   body.columns[1].items.push(winPercentTemplate)
-    //   entities.push(obj.player)
-    // })
-    // body.columns[1].items.splice(1, 1)
-    // body.columns[0].items.splice(1, 1)
+    const body = clonedLeaderboard.body[0]
+    players.forEach((playerDb) => {
+      const obj =  playerDb.toObject()
+      const playerTemplate = cloneDeep(body.columns[0].items[1])
+      const winPercentTemplate = cloneDeep(body.columns[1].items[1])
+      playerTemplate.text = '@'+/<at>(.*?)<\/at>/g.exec(obj.player.text)[1]
+      winPercentTemplate.text = `${Math.round(obj.percentage)}%`
+      body.columns[0].items.push(playerTemplate)
+      body.columns[1].items.push(winPercentTemplate)
+      entities.push(obj.player)
+    })
+    body.columns[1].items.splice(1, 1)
+    body.columns[0].items.splice(1, 1)
     const adaptiveCard = CardFactory.adaptiveCard(clonedLeaderboard)
     return {
       text: 'Showing the current top 10 players',

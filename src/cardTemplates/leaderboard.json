@@ -13,8 +13,8 @@
             "width": "stretch",
             "items": [
               {
-                "type": "Players",
-                "text": "Passengers",
+                "type": "TextBlock",
+                "text": "Player",
                 "isSubtle": true,
                 "weight": "Bolder"
               },
@@ -38,7 +38,7 @@
               },
               {
                 "type": "TextBlock",
-                "text": "{percentageWin}",
+                "text": "14A",
                 "horizontalAlignment": "Right",
                 "spacing": "Small"
               }
