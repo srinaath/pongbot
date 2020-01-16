@@ -1,0 +1,26 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "size": "Medium",
+          "weight": "Bolder",
+          "text": "Schedule a Ping pong game on Teams",
+          "wrap": true,
+          "maxLines": 2
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Meeting URl",
+      "url": "https://teams.microsoft.com/l/meeting/new?subject=PingPongGame&attendees=<attendeeAlias>"
+    }
+  ],
+  "version": "1.0"
+}

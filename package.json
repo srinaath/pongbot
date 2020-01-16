@@ -1,0 +1,39 @@
+{
+    "name": "teams-bot",
+    "version": "1.0.0",
+    "description": "Bot Builder v4 Bot Teams sample",
+    "author": "Microsoft",
+    "license": "MIT",
+    "main": "index.js",
+    "scripts": {
+        "start": "node -r esm index.js",
+        "watch": "nodemon -r esm ./index.js",
+        "lint": "eslint .",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Microsoft/BotBuilder-Samples.git"
+    },
+    "dependencies": {
+        "axios": "^0.19.1",
+        "botbuilder": "~4.6.0",
+        "config": "^3.2.4",
+        "dotenv": "^8.0.0",
+        "esm": "^3.2.25",
+        "lodash.clonedeep": "^4.5.0",
+        "mongoose": "^5.8.7",
+        "query-string": "^6.9.0",
+        "restify": "~8.3.3"
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-config-standard": "^13.0.1",
+        "eslint-plugin-import": "^2.20.0",
+        "eslint-plugin-node": "^9.1.0",
+        "eslint-plugin-promise": "^4.2.1",
+        "eslint-plugin-standard": "^4.0.0",
+        "nodemon": "~1.19.1"
+    }
+}
