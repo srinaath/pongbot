@@ -3,3 +3,4 @@ node_modules
 /.env
 /teamsAppManifest/manifest.zip
 /teamsAppManifest/manifest.json
+/teamsAppManifest/.DS_Store

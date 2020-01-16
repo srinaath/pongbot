@@ -14,17 +14,17 @@ const { BotFrameworkAdapter } = require('botbuilder');
 
 const { PongConversationBot } = require('./bots/pongConversationBot');
 
+// Read botFilePath and botFileSecret from .env file.
+const ENV_FILE = path.join(__dirname, '.env');
+require('dotenv').config({ path: ENV_FILE });
 
+//Connect to mongo
 mongoose.connect(process.env.MongoDbConnect, {
   useUnifiedTopology: true
 }).then(() =>  {
   console.log('connection succesful')
   mongoose.set('useFindAndModify', false);
 }).catch((err) => console.error(err));
-
-// Read botFilePath and botFileSecret from .env file.
-const ENV_FILE = path.join(__dirname, '.env');
-require('dotenv').config({ path: ENV_FILE });
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters.

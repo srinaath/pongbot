@@ -1,10 +1,14 @@
 /* eslint-disable no-case-declarations */
 import cloneDeep from 'lodash.clonedeep'
 import { CardFactory } from 'botbuilder'
-const MeetingCard = require('../src/cardTemplates/meetingCard.json') 
+const MeetingCard = require('../src/cardTemplates/meetingCard.json')
+const LeaderboardCard = require('../src/cardTemplates/leaderboard.json')
 import GameOperations from './mongoose/controllers/GameController'
 import StatsOperations from './mongoose/controllers/StatsController'
 import { suggestPlayerSuccessMsg, suggestPlayerWinMessage } from './helpers/randomizedText'
+import { TextEncoder } from 'util'
+
+const encoder = new TextEncoder();
 
 const intents = {
   updateScores: 'UPDATE_SCORES',
@@ -63,16 +67,26 @@ export default (luisResponse, entityMappers, members) => {
 
   const handleLeaderboard = async () => {
     const players = await StatsOperations.getLeaderboards()
-    let text = ''
     const entities = []
-    players.forEach((playerDb, index) => {
-      const player = playerDb.player
-      text += `${index+1}.${player.text} \n`
-      entities.push(player.toObject())
-    })
+    const clonedLeaderboard = cloneDeep(LeaderboardCard)
+    // const body = clonedLeaderboard.body[0]
+    // players.forEach((playerDb) => {
+    //   const obj =  playerDb.toObject()
+    //   const playerTemplate = cloneDeep(body.columns[0].items[1])
+    //   const winPercentTemplate = cloneDeep(body.columns[1].items[1])
+    //   playerTemplate.text = '@'+/<at>(.*?)<\/at>/g.exec(obj.player.text)[1]
+    //   winPercentTemplate.text = `${Math.round(obj.percentage)}%`
+    //   body.columns[0].items.push(playerTemplate)
+    //   body.columns[1].items.push(winPercentTemplate)
+    //   entities.push(obj.player)
+    // })
+    // body.columns[1].items.splice(1, 1)
+    // body.columns[0].items.splice(1, 1)
+    const adaptiveCard = CardFactory.adaptiveCard(clonedLeaderboard)
     return {
-      text,
-      entities
+      text: 'Showing the current top 10 players',
+      entities: [],
+      attachments: [adaptiveCard]
     }
   }
   

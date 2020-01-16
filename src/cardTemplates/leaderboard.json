@@ -1,0 +1,50 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "body": [
+      {
+        "type": "ColumnSet",
+        "separator": true,
+        "spacing": "Medium",
+        "columns": [
+          {
+            "type": "Column",
+            "width": "stretch",
+            "items": [
+              {
+                "type": "Players",
+                "text": "Passengers",
+                "isSubtle": true,
+                "weight": "Bolder"
+              },
+              {
+                "type": "TextBlock",
+                "text": "{underName.name}",
+                "spacing": "Small"
+              }
+            ]
+          },
+          {
+            "type": "Column",
+            "width": "auto",
+            "items": [
+              {
+                "type": "TextBlock",
+                "text": "Wins",
+                "horizontalAlignment": "Right",
+                "isSubtle": true,
+                "weight": "Bolder"
+              },
+              {
+                "type": "TextBlock",
+                "text": "{percentageWin}",
+                "horizontalAlignment": "Right",
+                "spacing": "Small"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
