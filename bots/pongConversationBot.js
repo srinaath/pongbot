@@ -1,4 +1,8 @@
+/* eslint-disable no-case-declarations */
 import { TurnContext, MessageFactory, TeamsActivityHandler, TeamsInfo } from 'botbuilder'
+import get from 'lodash.get'
+import lowercase from 'lodash.lowercase'
+import trim from 'lodash.trim'
 import { getPredictionsFromLuis } from '../src/luisConnect'
 import { parsedEntities } from '../src/helpers/parseEntities'
 import botActions from '../src/botActions'
@@ -17,16 +21,27 @@ export class PongConversationBot extends TeamsActivityHandler {
         utterance,
         trimmedEntities
       } = parsedEntities(context.activity)
-      const predictions = await getPredictionsFromLuis(utterance)
-      const actions = botActions(predictions, trimmedEntities, this.members)
-      const result = await actions.handleBotActions();
+
+      let replyActivity
+      switch (lowercase(trim(get(context, 'activity.text', '')))) {
+        case 'help':
+         replyActivity = MessageFactory.text('1. Record games (@pongbot i beat @player by 3 sets to 1) \r2. Show leaderboard\r3. Suggest me someone to play');
+          await context.sendActivity(replyActivity);
+          break;
       
-      const replyActivity = MessageFactory.text(result.text);
-      if(result.attachments) {
-        replyActivity.attachments = result.attachments
+        default:
+          const predictions = await getPredictionsFromLuis(utterance)
+          const actions = botActions(predictions, trimmedEntities, this.members)
+          const result = await actions.handleBotActions();
+          
+          replyActivity = MessageFactory.text(result.text);
+          if(result.attachments) {
+            replyActivity.attachments = result.attachments
+          }
+          replyActivity.entities = result.entities;
+          await context.sendActivity(replyActivity);
+          break;
       }
-      replyActivity.entities = result.entities;
-      await context.sendActivity(replyActivity);
       await next();
     });
   }
