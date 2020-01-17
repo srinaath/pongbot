@@ -14,6 +14,10 @@ const bigWinMessage = [
   `That was a no contest. You absolutely crushed it <at>winner</at>. Better luck next time <at>loser</at>.`
 ]
 
+const firstGameMsg = [
+  `Welcome to @pongbot for your first game!!`
+]
+
 const winStreakMsg = (winStreakCt) => {
   if(winStreakCt >= 3) {
     const msgs = [
@@ -32,13 +36,19 @@ export const getRandomizedValueFromArray = (arr) => {
   return undefined
 }
 
-export const suggestPlayerSuccessMsg = (player) => {
+export const suggestPlayerSuccessMsg = (player, isFirstGame) => {
+  let msg = ''
+  if(isFirstGame) {
+    msg +=  getRandomizedValueFromArray(firstGameMsg)
+  }
   const randomizedResult = getRandomizedValueFromArray(suggestPlayerMessaging)
-  return randomizedResult.replace('<at>player<at>', player.text)
+  msg +=randomizedResult.replace('<at>player<at>', player.text)
+  return msg
 }
 
 export const suggestPlayerWinMessage = (winner, loser, winnerSet, loserSet, winStreakCt, loseStreakCt) => {
-  let msg = winStreakMsg(winStreakCt) + getRandomizedValueFromArray(closeWinMessage)
+  let msg = ''
+  msg += winStreakMsg(winStreakCt) + getRandomizedValueFromArray(closeWinMessage)
   if(winnerSet - loserSet >= 3) {
     msg = winStreakMsg(winStreakCt) + getRandomizedValueFromArray(bigWinMessage)
   }

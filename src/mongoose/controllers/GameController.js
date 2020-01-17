@@ -42,6 +42,15 @@ const winStreakCt = async (player) => {
   return winStreak
 }
 
+
+GameController.isFirstGame = async (player) => {
+  const results = await GameModel.find( { $or: [ { 'winner.id': player.mentioned.id }, { 'loser.id': player.mentioned.id } ] } )
+  if(results.length === 0) {
+    return true
+  }
+  return false
+}
+
 const loseStreakCt = async (player) => {
   const results = await GameModel.find( { $or: [ { 'winner.id': player.mentioned.id }, { 'loser.id': player.mentioned.id } ] } ).sort ({'updated_at': -1})
   let loseStreak = 0

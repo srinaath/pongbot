@@ -73,6 +73,7 @@ export default (luisResponse, entityMappers, members) => {
 
   const handlePlayerSuggest = async () => {
     const player = entityMappers["i"].originalEntity;
+    const isFirstGame = await GameOperations.isFirstGame(player)
     const foundPlayer = await StatsOperations.getPlayersOfSameCaliber(
       player,
       30
@@ -93,7 +94,7 @@ export default (luisResponse, entityMappers, members) => {
     );
     const adaptiveCard = CardFactory.adaptiveCard(clonedCard);
     return {
-      text: suggestPlayerSuccessMsg(foundPlayer.player.toObject()),
+      text: suggestPlayerSuccessMsg(foundPlayer.player.toObject(), isFirstGame),
       entities: [foundPlayer.player.toObject()],
       attachments: [adaptiveCard]
     };
