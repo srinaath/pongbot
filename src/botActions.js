@@ -6,9 +6,6 @@ const LeaderboardCard = require('../src/cardTemplates/leaderboard.json')
 import GameOperations from './mongoose/controllers/GameController'
 import StatsOperations from './mongoose/controllers/StatsController'
 import { suggestPlayerSuccessMsg, suggestPlayerWinMessage } from './helpers/randomizedText'
-import { TextEncoder } from 'util'
-
-const encoder = new TextEncoder();
 
 const intents = {
   updateScores: 'UPDATE_SCORES',
@@ -35,9 +32,12 @@ export default (luisResponse, entityMappers, members) => {
       const loserEntity = entityMappers[parsedLoserEntity.phrase]
       const winnerScore = parseInt(parsedWinnerScore.phrase, 10)
       const loserScore = parseInt(parsedLoserScore.phrase, 10)
-      await GameOperations.saveGame(winnerEntity.originalEntity, loserEntity.originalEntity, winnerScore, loserScore)
+      const {
+        winStreak,
+        loseStreak
+      } = await GameOperations.saveGame(winnerEntity.originalEntity, loserEntity.originalEntity, winnerScore, loserScore)
       return {
-        text: suggestPlayerWinMessage(winnerEntity.text, loserEntity.text, winnerScore, loserScore),
+        text: suggestPlayerWinMessage(winnerEntity.text, loserEntity.text, winnerScore, loserScore, winStreak, loseStreak),
         entities: [winnerEntity.originalEntity, loserEntity.originalEntity]
       }
     }
@@ -46,7 +46,7 @@ export default (luisResponse, entityMappers, members) => {
 
   const handlePlayerSuggest = async () => {
     const player = entityMappers['i'].originalEntity
-    const foundPlayer = await StatsOperations.getPlayersOfSameCaliber(player, 10)
+    const foundPlayer = await StatsOperations.getPlayersOfSameCaliber(player, 30)
     if(!foundPlayer) {
       return {
         text: `Gosh. Thats a bit embarassing. I couldnt find a player to suggest for you. But, keep tracking more games and I bet I'll find you one the next time.`,
