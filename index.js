@@ -17,7 +17,7 @@ const { PongConversationBot } = require('./bots/pongConversationBot');
 // Read botFilePath and botFileSecret from .env file.
 const ENV_FILE = path.join(__dirname, '.env');
 require('dotenv').config({ path: ENV_FILE });
-console.log(process.env);
+
 //Connect to mongo
 mongoose.connect(process.env.MongoDbConnect, {
   useUnifiedTopology: true

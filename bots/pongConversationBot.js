@@ -25,7 +25,8 @@ export class PongConversationBot extends TeamsActivityHandler {
       let replyActivity
       switch (lowercase(trim(get(context, 'activity.text', '')))) {
         case 'help':
-         replyActivity = MessageFactory.text('1. Record games by using this sample utterance "@pongbot i beat @player by 3 sets to 1" \r2. "Show leaderboard" to view the top 10 ranked players\r3. "Suggest me someone to play" to find an equal matchup for and setup a match with them.');
+         replyActivity =
+          MessageFactory.text('Sample utterances for recording your games are\r- @pongbot I beat @player by 3 sets to 1\r- @pongbot @player1 thrashed me by 6:0\r - @pongbot @player3 beat @player4 beat me by 4 sets to 3.');
           await context.sendActivity(replyActivity);
           break;
       

@@ -37,10 +37,10 @@ StatsController.getPlayersOfSameCaliber = async (player, offsetPercentage) => {
       return getRandomizedValueFromArray(players)
     }
   }
-  const randomPlayer = await StatsModel.findOne({
-    'player.mentioned.id': { $ne: player.mentioned.id }
+  const randomPlayers = await StatsModel.find({
+    'player.mentioned.id': { $ne: player.mentioned.id },
   })
-  return randomPlayer
+  return getRandomizedValueFromArray(randomPlayers)
 };
 
 StatsController.getLeaderboards = async () => {

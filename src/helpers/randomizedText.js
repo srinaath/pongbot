@@ -10,8 +10,8 @@ const closeWinMessage = [
 ]
 
 const bigWinMessage = [
-  `You absolute crushed it <at>winner</at>. Better luck next time <at>loser</at>.`,
-  `That was a no contest. You absolutely crushed it <at>winner</at>. Better luck next time <at>loser</at>.`
+  `You absolutely crushed it <at>winner</at>. Better luck next time <at>loser</at>.`,
+  `That was a no contest.<at>winner</at> is on fire. Better luck next time <at>loser</at>.`
 ]
 
 const firstGameMsg = [
